@@ -1,11 +1,15 @@
+"use client";
 import { asText, Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import React from "react";
 import { Bounded } from "@/components/Bounded";
 import Button from "@/components/Button";
-import {TextSplitter} from "@/components/TextSplitter";
+import { TextSplitter } from "@/components/TextSplitter";
 
+gsap.registerPlugin(useGSAP);
 /**
  * Props for `Hero`.
  */
@@ -15,17 +19,51 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  * Component for "Hero" Slices.
  */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
+  useGSAP(() => {
+    const introTl = gsap.timeline();
+    introTl
+      .set(".hero", { opacity: 1 })
+      .from(".hero-header-word", {
+        scale: 3,
+        opacity: 0,
+        ease: "power4.in",
+        delay: 0.3,
+        stagger: 1,
+      })
+      .from(
+        ".hero-subheading",
+        {
+          opacity: 0,
+          y: 30,
+        },
+        "+=0.8",
+      )
+      .from(".hero-body", {
+        opacity: 0,
+        y: 10,
+      })
+      .from(".hero-button", {
+        opacity: 0,
+        y: 10,
+        duration: 0.6,
+      });
+  });
+
   return (
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="hero"
+      className="hero opacity-0"
     >
       <div className="grid">
         <div className="grid h-screen place-items-center">
           <div className="grid auto-rows-min place-items-center text-center">
             <h1 className="hero-header text-7xl font-black uppercase leading-[.8] text-orange-500 md:text-[9rem] lg:text-[13rem]">
-              <TextSplitter text={asText(slice.primary.heading)} wordDisplayStyle="block" className="hero-header-word" />
+              <TextSplitter
+                text={asText(slice.primary.heading)}
+                wordDisplayStyle="block"
+                className="hero-header-word"
+              />
             </h1>
             <div className="hero-subheading mt-12 text-5xl font-semibold text-sky-950 lg:text-6xl">
               <PrismicRichText field={slice.primary.subheading} />
