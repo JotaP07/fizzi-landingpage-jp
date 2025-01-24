@@ -55,13 +55,12 @@ const Scene = (props: Props) => {
 
     // Intro
     if (window.scrollY < 200) {
-    introTl
-      .from(can1GroupRef.current.position, { x: 1, y: -5 }, 0)
-      .from(can1GroupRef.current.rotation, { z: 3 }, 0)
-      .from(can2GroupRef.current.position, { x: 1, y: 5 }, 0)
-      .from(can2GroupRef.current.rotation, { z: 3 }, 0);
+      introTl
+        .from(can1GroupRef.current.position, { x: 1, y: -5 }, 0)
+        .from(can1GroupRef.current.rotation, { z: 3 }, 0)
+        .from(can2GroupRef.current.position, { x: 1, y: 5 }, 0)
+        .from(can2GroupRef.current.rotation, { z: 3 }, 0);
     }
-
 
     const scrollTl = gsap.timeline({
       defaults: { duration: 3 },
@@ -73,35 +72,27 @@ const Scene = (props: Props) => {
       },
     });
 
-    // Rotation
+    // Rotate group and cans first, then move them closer
     scrollTl
       // Rotate can group
-      .to(groupRef.current.rotation, { y: Math.PI * 2 })
+      .to(groupRef.current.rotation, { y: Math.PI * 2 }, 0)
 
-      // Can 1 - black cherry
-      .to(can1Ref.current.position, { x: -0.2, y: -0.7, z: -2 }, 0)
+      // Can animations (rotation and then position)
       .to(can1Ref.current.rotation, { z: 0.3 }, 0)
-
-      // Can 2 - Lemon Lime
-      .to(can2Ref.current.position, { x: 1, y: -0.2, z: -1 }, 0)
       .to(can2Ref.current.rotation, { z: 0 }, 0)
-
-      // Can 3 - Grape
-      .to(can3Ref.current.position, { x: -0.3, y: 0.5, z: -1 }, 0)
       .to(can3Ref.current.rotation, { z: -0.1 }, 0)
-
-      // Can 4 - Strawberry Lemonade
-      .to(can4Ref.current.position, { x: 0, y: -0.3, z: 0.5 }, 0)
       .to(can4Ref.current.rotation, { z: 0.3 }, 0)
-
-      // Can 5 -Watermelon
-      .to(can5Ref.current.position, { x: 0.3, y: 0.5, z: -0.5 }, 0)
       .to(can5Ref.current.rotation, { z: -0.25 }, 0)
-      .to(
-        groupRef.current.position,
-        { x: 1, duration: 3, ease: "sine.inOut" },
-        1.3,
-      );
+
+      // Now move the cans closer
+      .to(can1Ref.current.position, { x: -0.2, y: -0.7, z: -2 }, 1)
+      .to(can2Ref.current.position, { x: 1, y: -0.2, z: -1 }, 1)
+      .to(can3Ref.current.position, { x: -0.3, y: 0.5, z: -1 }, 1)
+      .to(can4Ref.current.position, { x: 0, y: -0.3, z: 0.5 }, 1)
+      .to(can5Ref.current.position, { x: 0.3, y: 0.5, z: -0.5 }, 1)
+
+      // Move the group position
+      .to(groupRef.current.position, { x: 1, duration: 3, ease: "sine.inOut" }, 1.3);
   });
 
   return (
