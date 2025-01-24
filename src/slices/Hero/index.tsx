@@ -9,6 +9,8 @@ import React from "react";
 import { Bounded } from "@/components/Bounded";
 import Button from "@/components/Button";
 import { TextSplitter } from "@/components/TextSplitter";
+import { View } from "@react-three/drei";
+import Scene from "@/slices/Hero/Scene";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 /**
@@ -21,6 +23,7 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
   useGSAP(() => {
+
     const introTl = gsap.timeline();
     introTl
       .set(".hero", { opacity: 1 })
@@ -73,17 +76,17 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       )
       .from(".text-side-heading .split-char", {
         scale: 1.3,
-        y:40,
-        rotate:-25,
+        y: 40,
+        rotate: -25,
         opacity: 0,
-        stagger:0.1,
-        ease:"back.out(3)",
-        duration: 0.5
+        stagger: 0.1,
+        ease: "back.out(3)",
+        duration: 0.5,
       })
-        .from(".text-side-body", {
-          opacity: 0,
-          y: 20,
-        })
+      .from(".text-side-body", {
+        opacity: 0,
+        y: 20,
+      });
   });
 
   return (
@@ -92,6 +95,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className="hero opacity-0"
     >
+      <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
+        <Scene />
+      </View>
+
       <div className="grid">
         <div className="grid h-screen place-items-center">
           <div className="grid auto-rows-min place-items-center text-center">
