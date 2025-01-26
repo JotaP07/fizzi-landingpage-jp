@@ -12,18 +12,18 @@ import { TextSplitter } from "@/components/TextSplitter";
 import { View } from "@react-three/drei";
 import Scene from "@/slices/Hero/Scene";
 import { Bubbles } from "@/components/Bubbles";
+import { useStore } from "@/hooks/useStore";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-/**
- * Props for `Hero`.
- */
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
-/**
- * Component for "Hero" Slices.
- */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
+  const ready = useStore((state) => state.ready);
+  const isDesktop = useMediaQuery("(min-width: 768px)", true);
+
   useGSAP(() => {
+    if (!ready && isDesktop) return;
 
     const introTl = gsap.timeline();
     introTl
@@ -88,7 +88,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         opacity: 0,
         y: 20,
       });
-  });
+  }, {dependencies: [ready, isDesktop]});
 
   return (
     <Bounded
@@ -96,10 +96,12 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className="hero opacity-0"
     >
+      {isDesktop && (
       <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
         <Scene />
-        <Bubbles count={300} speed={1.7} repeat={true}/>
+        <Bubbles count={300} speed={1.7} repeat={true} />
       </View>
+      )}
 
       <div className="grid">
         <div className="grid h-screen place-items-center">

@@ -24,6 +24,7 @@ export default function ViewCanvas({}: Props) {
       }}
     >
       <View.Port />
+      {/*<Perf />*/}
     </Canvas>
   );
 }
