@@ -1,20 +1,20 @@
-<div align="center">
-    <img src="https://github.com/JotaP07/fizzi-landingpage-jp/blob/master/fizzi-gif.gif?raw=true" alt="Fizzi Landing Page Demo" />
-</div>
+
 
 <div align="center">
-    <h1>
-        Fizzi - Landing Page
-    </h1> 
+    <img src="https://raw.githubusercontent.com/JotaP07/fizzi-landingpage-jp/1267d767275398d222cd39b8176437214afc2b89/src/app/icon.svg"/>
+    <hr>
     <div align="end">
         <h3>
             <a href="https://github.com/JotaP07" target="_blank">
-                By João Canhete
+             <em>By João Canhete</em> 
             </a>
         </h3>
     </div>
 </div>
 
+<div align="center">
+    <img src="https://github.com/JotaP07/fizzi-landingpage-jp/blob/master/fizzi-gif.gif?raw=true" alt="Fizzi Landing Page Demo" />
+</div>
 
 ## **Introduction**
 
@@ -26,7 +26,6 @@ Welcome to the **Fizzi Landing Page**! This project is a modern and interactive 
 - **GSAP (GreenSock Animation Platform)**: For smooth and impressive animations.
 - **Three.js**: For interactive 3D elements that enhance the user experience.
 
----
 
 ## **How to Use**
 
@@ -90,7 +89,7 @@ You can access the tutorial video here:
     <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="hridoyalhazard" height="50" width="50" />
   </a>
 </p>
-<h1 align="center"></h1>
+<hr>
 <p align="center">
    <img src="https://github.com/JotaP07/JotaP07/blob/master/logoAtt.png" width="100" > 
 </p>
