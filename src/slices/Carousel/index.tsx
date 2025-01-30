@@ -9,10 +9,14 @@ import {
 import { SodaCanProps } from "@/components/SodaCan";
 import { Center, Environment, View } from "@react-three/drei";
 import FloatingCan from "@/components/FloatingCan";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowIcon } from "@/slices/Carousel/ArrowIcon";
 import clsx from "clsx";
 import { WavyCircles } from "@/slices/Carousel/WavyCircles";
+import { Group } from "three";
+import gsap from "gsap";
+
+const SPINS_ON_CHANGE = 8;
 
 const FLAVORS: {
   flavor: SodaCanProps["flavor"];
@@ -35,10 +39,46 @@ export type CarouselProps = SliceComponentProps<Content.CarouselSlice>;
 const Carousel = ({ slice }: CarouselProps): JSX.Element => {
   const [currentFlavorIndex, setCurrentFlavorIndex] = useState(0);
 
+  const SodaCanRef = useRef<Group>(null);
+
   function changeFlavor(index: number) {
+    if (!SodaCanRef.current) return;
     const nextIndex = (index + FLAVORS.length) % FLAVORS.length;
 
-    setCurrentFlavorIndex(nextIndex);
+    const tl = gsap.timeline();
+    tl.to(
+      SodaCanRef.current.rotation,
+      {
+        y:
+          index > currentFlavorIndex
+            ? `-=${Math.PI * 2 * SPINS_ON_CHANGE}`
+            : `+=${Math.PI * 2 * SPINS_ON_CHANGE}`,
+        ease: "power2.inOut",
+        duration: 1,
+      },
+      0,
+    )
+      .to(
+        ".background, .wavy-circles-outer, .wavy-circles-inner",
+        {
+          backgroundColor: FLAVORS[nextIndex].color,
+          fill: FLAVORS[nextIndex].color,
+          ease: "power2.inOut",
+          duration: 1,
+        },
+        0,
+      )
+      .to(
+        ".text-wrapper",
+        {
+          duration: 0.2,
+          y: -10,
+          opacity: 0,
+        },
+        0,
+      )
+      .to({}, { onStart: () => setCurrentFlavorIndex(nextIndex) }, 0.5)
+      .to(".text-wrapper", { duration: 0.2, y: 0, opacity: 1 }, 0.7);
   }
 
   return (
@@ -49,7 +89,7 @@ const Carousel = ({ slice }: CarouselProps): JSX.Element => {
     >
       <div className="background pointer-events-none absolute inset-0 bg-[#710523] opacity-50" />
 
-      <WavyCircles className="absolute left-1/2 top-1/2 h-[120vmin] -translate-x-1/2 -translate-y-1/2 text-[#710523]"/>
+      <WavyCircles className="absolute left-1/2 top-1/2 h-[120vmin] -translate-x-1/2 -translate-y-1/2 text-[#710523]" />
 
       <h2 className="relative text-center text-5xl font-bold">
         <PrismicText field={slice.primary.heading} />
@@ -65,6 +105,7 @@ const Carousel = ({ slice }: CarouselProps): JSX.Element => {
         <View className="aspect-square h-[70vmin] min-h-40">
           <Center position={[0, 0, 1.5]}>
             <FloatingCan
+              ref={SodaCanRef}
               floatFloatIntensity={0.3}
               floatRotationIntensity={1}
               flavor={FLAVORS[currentFlavorIndex].flavor}
@@ -116,8 +157,7 @@ function ArrowButton({
       onClick={onClick}
       className="lg-:size-20 size-12 rounded-full border-2 border-white bg-white/10 p-3 opacity-85 ring-white focus:outline-none focus-visible:opacity-100 focus-visible:ring-4 md:size-16 lg:size-20"
     >
-      <ArrowIcon className={clsx(direction === "right" && "-scale-x-100"
-      )}/>
+      <ArrowIcon className={clsx(direction === "right" && "-scale-x-100")} />
       <span className="sr-only">{label}</span>
     </button>
   );
