@@ -26,6 +26,11 @@ Welcome to the **Fizzi Landing Page**! This project is a modern and interactive 
 - **GSAP (GreenSock Animation Platform)**: For smooth and impressive animations.
 - **Three.js**: For interactive 3D elements that enhance the user experience.
 
+## **⚠️ Compatibility Warning**
+
+Due to optimizations in some browsers, especially older versions or "lite" variants, the 3D elements of the Fizzi Landing Page may not function correctly. To ensure the best experience, it is recommended to use updated browsers on devices with higher processing capabilities.
+<br></br>
+
 
 ## **How to Use**
 
@@ -33,7 +38,7 @@ Welcome to the **Fizzi Landing Page**! This project is a modern and interactive 
 You can access the landing page directly via the link below: 
 👉<a href="https://fizzi-landingpage-jp.vercel.app/"> Fizzi Home Page </a>
 
-**⚠️ Important**: For the best experience, we recommend accessing the site on a **computer**. The 3D elements and animations are optimized for devices with higher processing power.
+**⚠ Important**: For the best experience, we recommend accessing the site on a **computer**. The 3D elements and animations are optimized for devices with higher processing power.
 
 
 ### **2. Running Locally**
@@ -54,7 +59,7 @@ If you want to run the project locally, follow the steps below:
 4. **Open in your Browser**:  ``` localhost:3000 ```  **<-- default**
 <br></br>
 
-## **⚠️Why Use a Computer?⚠️**
+## **⚠Why Use a Computer?⚠**
 The Fizzi Landing Page features interactive 3D elements and complex animations that are best viewed on computers.
 Mobile devices may not provide the same level of fluidity and quality due to hardware limitations.
 <br></br>
